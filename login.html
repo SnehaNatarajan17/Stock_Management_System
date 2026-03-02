@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Stock Management System Login</h2>
+
+    <select id="role">
+        <option value="admin">Admin</option>
+        <option value="staff">Staff</option>
+    </select>
+
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+    <p id="error" class="error"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Management Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Stock Management System</h1>
+<p>Logged in as: <span id="userRole"></span></p>
+<button onclick="logout()">Logout</button>
+
+<div class="dashboard">
+    <h3>Total Items: <span id="totalItems">0</span></h3>
+    <h3 class="low-count">Low Stock Items: <span id="lowStockCount">0</span></h3>
+</div>
+
+<div class="form-section">
+    <input type="text" id="name" placeholder="Item Name">
+    <input type="text" id="category" placeholder="Category">
+    <input type="number" id="quantity" placeholder="Quantity">
+    <input type="number" id="price" placeholder="Price">
+    <button onclick="addItem()">Add Item</button>
+</div>
+
+<div class="filter-row">
+
+    <div class="search-box">
+        <input type="text"
+               id="searchInput"
+               placeholder="Search by Product Name"
+               onkeyup="applyFilters()">
+    </div>
+
+    <div class="category-box">
+        <select id="categoryFilter" onchange="applyFilters()">
+            <option value="all">All Categories</option>
+        </select>
+    </div>
+
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Sell</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="itemTable"></tbody>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>
