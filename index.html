@@ -1,7 +1,7 @@
-<meta charset="UTF-8">
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Stock Management Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -26,7 +26,6 @@
 </div>
 
 <div class="filter-row">
-
     <div class="search-box">
         <input type="text"
                id="searchInput"
@@ -39,7 +38,6 @@
             <option value="all">All Categories</option>
         </select>
     </div>
-
 </div>
 
 <table>
@@ -61,6 +59,11 @@
     </tbody>
 </table>
 
+<!-- Toast and Status -->
+<div id="toast" class="toast"></div>
+<p id="actionStatus"></p>
+
 <script src="script.js"></script>
+
 </body>
 </html>
