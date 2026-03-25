@@ -1,7 +1,7 @@
-<meta charset="UTF-8">
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Stock Management System</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -22,6 +22,41 @@
     <p id="error" class="error"></p>
 </div>
 
+<!-- Toast and Status -->
+<div id="toast" class="toast"></div>
+<p id="actionStatus"></p>
+
 <script src="script.js"></script>
+<script>
+    function login() {
+        const role = document.getElementById("role").value;
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        const users = JSON.parse(localStorage.getItem("users"));
+        const validUser = users.find(user =>
+            user.role === role &&
+            user.username === username &&
+            user.password === password
+        );
+
+        if (validUser) {
+            localStorage.setItem("loggedInUser", JSON.stringify(validUser));
+
+            // Show toast before redirect
+            showToast(`Welcome ${validUser.username} 👋`);
+            updateStatus("Login successful");
+
+            // Redirect after 1 second
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 6000);
+
+        } else {
+            document.getElementById("error").innerText = "Invalid Credentials!";
+        }
+    }
+</script>
+
 </body>
 </html>
