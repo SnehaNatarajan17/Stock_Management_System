@@ -1,3 +1,22 @@
+// ===== TOAST FUNCTION =====
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+
+    toast.innerText = message;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 7000);
+}
+
+// ===== STATUS MESSAGE =====
+function updateStatus(msg) {
+    const status = document.getElementById("actionStatus");
+    if (status) status.innerText = msg;
+}
+
 // ===== DEFAULT USERS =====
 if (!localStorage.getItem("users")) {
     const users = [
@@ -7,47 +26,38 @@ if (!localStorage.getItem("users")) {
     localStorage.setItem("users", JSON.stringify(users));
 }
 
-// ===== DEFAULT 30 ITEMS (ONLY FIRST TIME) =====
+// ===== DEFAULT 30 ITEMS =====
 if (!localStorage.getItem("itemsInitialized")) {
     const defaultItems = [
-        { id: 1, name: "Laptop", category: "Electronics", quantity: 10, price: 50000 },
-        { id: 2, name: "Mouse", category: "Electronics", quantity: 3, price: 500 },
-        { id: 3, name: "Keyboard", category: "Electronics", quantity: 0, price: 1500 },
-
-        { id: 4, name: "Rice Bag", category: "Grocery", quantity: 20, price: 1200 },
-        { id: 5, name: "Sugar", category: "Grocery", quantity: 5, price: 50 },
-        { id: 6, name: "Salt", category: "Grocery", quantity: 0, price: 20 },
-
+        { id: 1, name: "Rice Bag", category: "Grocery", quantity: 20, price: 1200 },
+        { id: 2, name: "Sugar", category: "Grocery", quantity: 15, price: 50 },
+        { id: 3, name: "Salt", category: "Grocery", quantity: 50, price: 20 },
+        { id: 4, name: "Laptop", category: "Electronics", quantity: 10, price: 50000 },
+        { id: 5, name: "Mouse", category: "Electronics", quantity: 13, price: 500 },
+        { id: 6, name: "Keyboard", category: "Electronics", quantity: 10, price: 1500 },
         { id: 7, name: "Notebook", category: "Stationery", quantity: 15, price: 40 },
-        { id: 8, name: "Pen", category: "Stationery", quantity: 2, price: 10 },
+        { id: 8, name: "Pen", category: "Stationery", quantity: 20, price: 10 },
         { id: 9, name: "Marker", category: "Stationery", quantity: 0, price: 30 },
-
         { id: 10, name: "T-Shirt", category: "Clothing", quantity: 12, price: 700 },
         { id: 11, name: "Jeans", category: "Clothing", quantity: 4, price: 1500 },
-        { id: 12, name: "Jacket", category: "Clothing", quantity: 0, price: 2500 },
-
+        { id: 12, name: "Jacket", category: "Clothing", quantity: 50, price: 2500 },
         { id: 13, name: "Watch", category: "Accessories", quantity: 6, price: 2000 },
         { id: 14, name: "Belt", category: "Accessories", quantity: 3, price: 400 },
         { id: 15, name: "Cap", category: "Accessories", quantity: 0, price: 300 },
-
         { id: 16, name: "Headphones", category: "Electronics", quantity: 8, price: 2000 },
         { id: 17, name: "Charger", category: "Electronics", quantity: 5, price: 800 },
         { id: 18, name: "USB Cable", category: "Electronics", quantity: 1, price: 200 },
-
         { id: 19, name: "Oil", category: "Grocery", quantity: 7, price: 150 },
         { id: 20, name: "Flour", category: "Grocery", quantity: 2, price: 60 },
         { id: 21, name: "Tea Powder", category: "Grocery", quantity: 0, price: 250 },
-
         { id: 22, name: "Eraser", category: "Stationery", quantity: 9, price: 5 },
-        { id: 23, name: "Scale", category: "Stationery", quantity: 4, price: 20 },
+        { id: 23, name: "Scale", category: "Stationery", quantity: 14, price: 20 },
         { id: 24, name: "Glue", category: "Stationery", quantity: 0, price: 25 },
-
         { id: 25, name: "Shoes", category: "Clothing", quantity: 6, price: 3000 },
         { id: 26, name: "Socks", category: "Clothing", quantity: 3, price: 150 },
         { id: 27, name: "Shorts", category: "Clothing", quantity: 0, price: 600 },
-
         { id: 28, name: "Bag", category: "Accessories", quantity: 5, price: 1200 },
-        { id: 29, name: "Wallet", category: "Accessories", quantity: 2, price: 800 },
+        { id: 29, name: "Wallet", category: "Accessories", quantity: 42, price: 800 },
         { id: 30, name: "Sunglasses", category: "Accessories", quantity: 0, price: 1500 }
     ];
 
@@ -79,6 +89,10 @@ function login() {
 
     if (validUser) {
         localStorage.setItem("loggedInUser", JSON.stringify(validUser));
+
+        showToast(`Welcome ${validUser.username} 👋`);
+        updateStatus("Login successful");
+
         window.location.href = "index.html";
     } else {
         document.getElementById("error").innerText = "Invalid Credentials!";
@@ -101,7 +115,16 @@ if (window.location.pathname.includes("index.html")) {
 
 // ===== LOGOUT =====
 function logout() {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    const username = loggedInUser ? loggedInUser.username : "User";
+
+    // Remove user
     localStorage.removeItem("loggedInUser");
+
+    // Store a temporary logout message to show on login page
+    localStorage.setItem("logoutMessage", `${username} logged out 👋`);
+
+    // Redirect immediately
     window.location.href = "login.html";
 }
 
@@ -170,6 +193,9 @@ function addItem() {
         item.price = price;
         item.category = category;
 
+        showToast(`${name} updated successfully ✏️`);
+        updateStatus(`${name} updated`);
+
         editId = null;
     } else {
         items.push({
@@ -179,6 +205,9 @@ function addItem() {
             price,
             category
         });
+
+        showToast(`${name} added successfully ✅`);
+        updateStatus(`${name} added`);
     }
 
     saveToStorage();
@@ -207,23 +236,29 @@ function getDeleteButton(id) {
     if (user.role === "admin") {
         return `<button onclick="deleteItem(${id})">Delete</button>`;
     } else {
-        return `<button disabled>Delete</button>`;
+        // Add 'disabled' AND a CSS class for greyed-out style
+        return `<button class="disabled-btn" disabled>Delete</button>`;
     }
 }
-
 function deleteItem(id) {
-    if (!confirm("Are you sure?")) return;
+    const item = items.find(i => i.id === id);
+    if (!item) return;
 
-    items = items.filter(item => item.id !== id);
+    if (!confirm(`Are you sure you want to delete "${item.name}"?`)) return;
+
+    items = items.filter(i => i.id !== id);
     saveToStorage();
     displayItems();
+
+    showToast(`"${item.name}" deleted successfully 🗑️`);
+    updateStatus(`"${item.name}" deleted`);
 }
 
 // ===== SELL =====
 function sellItem(id) {
     const item = items.find(i => i.id === id);
 
-    const qty = Number(prompt("Enter quantity to sell:"));
+    const qty = Number(prompt(`Enter quantity to sell for "${item.name}":`));
 
     if (!qty || qty <= 0) return alert("Invalid quantity");
     if (qty > item.quantity) return alert("Not enough stock");
@@ -232,6 +267,9 @@ function sellItem(id) {
 
     saveToStorage();
     displayItems();
+
+    showToast(`${item.name} sold (Qty: ${qty}) 💰`);
+    updateStatus(`${item.name} sold`);
 }
 
 // ===== FILTER =====
@@ -273,3 +311,11 @@ window.onload = function () {
     displayItems();
     updateCategoryDropdown();
 };
+window.addEventListener("DOMContentLoaded", () => {
+    const logoutMessage = localStorage.getItem("logoutMessage");
+    if (logoutMessage) {
+        showToast(logoutMessage);
+        updateStatus("Logged out successfully");
+        localStorage.removeItem("logoutMessage"); // clear after showing
+    }
+});
