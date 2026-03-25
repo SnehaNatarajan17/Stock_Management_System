@@ -225,8 +225,16 @@ table button:hover {
     background: #21618c;
 }
 
-table button:disabled {
-    background: gray;
+table button.disabled-btn {
+    background: #3b3b3b !important;  /* dark grey */
+    color: white !important;          /* ensure text is white */
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+table button.disabled-btn:hover {
+    transform: none;
+    background: #3b3b3b !important;  /* prevent hover override */
 }
 
 /* ===== RESPONSIVE ===== */
@@ -245,4 +253,111 @@ table button:disabled {
         flex-direction: column;
         align-items: center;
     }
+}
+/* ===== TOAST (NEW) ===== */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #2c3e50;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+/* ===== STATUS MESSAGE (NEW) ===== */
+#actionStatus {
+    text-align: center;
+    margin: 10px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+/* ===== IMPROVED BADGES (ENHANCED VISIBILITY) ===== */
+.low-badge {
+    background: #f39c12;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+.out-badge {
+    background: #e74c3c;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+/* ===== ACTION BUTTON COLORS (OPTIONAL BUT NICE) ===== */
+table button:nth-child(1) {
+    background: #27ae60; /* Sell */
+}
+
+table button:nth-child(1):hover {
+    background: #1e8449;
+}
+
+table button:nth-child(2) {
+    background: #f39c12; /* Edit */
+}
+
+table button:nth-child(2):hover {
+    background: #d68910;
+}
+
+/* ===== DELETE BUTTON COLOR ===== */
+table button:last-child:not(:disabled) {
+    background: #e74c3c;
+}
+
+table button:last-child:not(:disabled):hover {
+    background: #c0392b;
+}
+
+/* ===== DASHBOARD CARD ENHANCEMENT ===== */
+.dashboard h3 {
+    transition: 0.3s;
+}
+
+.dashboard h3:hover {
+    transform: scale(1.05);
+}
+
+/* ===== INPUT FOCUS EFFECT ===== */
+.form-section input:focus {
+    border-color: #27ae60;
+    box-shadow: 0 0 5px rgba(39, 174, 96, 0.4);
+}
+
+/* ===== SMOOTH TABLE LOOK ===== */
+table {
+    transition: 0.3s;
+}
+
+table:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+/* Disabled Delete Button for Staff */
+.disabled-btn {
+    background: #3b3b3b;   /* grey color */
+    cursor: not-allowed;    /* show “not allowed” cursor */
+    opacity: 0.6;           /* semi-transparent */
+    color: white;
+}
+
+.disabled-btn:hover {
+    transform: none;        /* no hover effect */
 }
